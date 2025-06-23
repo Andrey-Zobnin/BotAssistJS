@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.assistant-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(0,50,150,0.15);
+  padding: 42px 32px;
+  max-width: 740px; /* Расширили контейнер */
+  width: 100%;
+  display: flex; /* Для размещения элементов рядом */
+  align-items: flex-start; /* Выравнивание по верху */
+}
+.info-column {
+  text-align: center;
+  width: 50%; /* Занимает половину ширины */
+  padding-right: 20px; /* Отступ между колонками */
+}
+.chatbot-column {
+  width: 50%; /* Занимает половину ширины */
+  padding-left: 20px; /* Отступ между колонками */
+}
+.avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #66a6ff 60%, #f6d365 100%);
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
+}
+h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #243b55;
+}
+p {
+  color: #4a4a4a;
+  margin: 0 0 24px 0;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.action-btn {
+  background: linear-gradient(90deg, #43cea2 10%, #185a9d 90%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 14px 0;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px 0 rgba(67,206,162,0.08);
+  outline: none;
+}
+.action-btn:hover {
+  background: linear-gradient(90deg, #185a9d 10%, #43cea2 90%);
+  box-shadow: 0 4px 24px 0 rgba(67,206,162,0.15);
+}
+.footer {
+  margin-top: 28px;
+  color: #bbb;
+  font-size: 0.95rem;
+}
+
+/* Chat styles */
+.chatbot-box {
+  background: #f8fafc;
+  border-radius: 14px;
+  box-shadow: 0 2px 14px 0 rgba(67,206,162,0.06);
+  padding: 20px 12px 12px 12px;
+  text-align: left;
+  max-width: 100%; /* Занимает всю ширину колонки */
+}
+.chat-messages {
+  min-height: 180px; /* Увеличили высоту */
+  max-height: 260px; /* Увеличили высоту */
+  overflow-y: auto;
+  margin-bottom: 14px;
+  font-size: 1.06em;
+}
+.chat-message {
+  margin-bottom: 8px;
+  display: flex;
+  line-height: 1.4;
+}
+.chat-message.user {
+  justify-content: flex-end;
+}
+.chat-message.bot {
+  justify-content: flex-start;
+}
+.bubble {
+  display: inline-block;
+  max-width: 80%;
+  padding: 7px 13px;
+  border-radius: 12px;
+  position: relative;
+  font-size: 1em;
+}
+.chat-message.user .bubble {
+  background: linear-gradient(90deg, #43cea2 10%, #185a9d 90%);
+  color: #fff;
+  border-bottom-right-radius: 2px;
+}
+.chat-message.bot .bubble {
+  background: #e6f0fa;
+  color: #243b55;
+  border-bottom-left-radius: 2px;
+}
+.chat-input-row {
+  display: flex;
+  gap: 6px;
+}
+.chat-input {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid #d9e3ea;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+  outline: none;
+  background: #fff;
+  transition: border 0.2s;
+}
+.chat-input:focus {
+  border: 1.5px solid #43cea2;
+}
+.chat-send-btn {
+  background: linear-gradient(90deg, #43cea2 10%, #185a9d 90%);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0 18px;
+  font-size: 1.1em;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.chat-send-btn:hover {
+  background: linear-gradient(90deg, #185a9d 10%, #43cea2 90%);
+}
+
+/* Дополнительные кнопки */
+.additional-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 24px;
+}

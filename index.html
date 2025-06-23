@@ -75,6 +75,88 @@
       color: #bbb;
       font-size: 0.95rem;
     }
+
+    /* Chat styles */
+    .chatbot-box {
+      margin-top: 30px;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 14px 0 rgba(67,206,162,0.06);
+      padding: 20px 12px 12px 12px;
+      text-align: left;
+      max-width: 330px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .chat-messages {
+      min-height: 82px;
+      max-height: 160px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      font-size: 1.06em;
+    }
+    .chat-message {
+      margin-bottom: 8px;
+      display: flex;
+      line-height: 1.4;
+    }
+    .chat-message.user {
+      justify-content: flex-end;
+    }
+    .chat-message.bot {
+      justify-content: flex-start;
+    }
+    .bubble {
+      display: inline-block;
+      max-width: 80%;
+      padding: 7px 13px;
+      border-radius: 12px;
+      position: relative;
+      font-size: 1em;
+    }
+    .chat-message.user .bubble {
+      background: linear-gradient(90deg, #43cea2 10%, #185a9d 90%);
+      color: #fff;
+      border-bottom-right-radius: 2px;
+    }
+    .chat-message.bot .bubble {
+      background: #e6f0fa;
+      color: #243b55;
+      border-bottom-left-radius: 2px;
+    }
+    .chat-input-row {
+      display: flex;
+      gap: 6px;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 7px;
+      border: 1px solid #d9e3ea;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1em;
+      outline: none;
+      background: #fff;
+      transition: border 0.2s;
+    }
+    .chat-input:focus {
+      border: 1.5px solid #43cea2;
+    }
+    .chat-send-btn {
+      background: linear-gradient(90deg, #43cea2 10%, #185a9d 90%);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 0 18px;
+      font-size: 1.1em;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .chat-send-btn:hover {
+      background: linear-gradient(90deg, #185a9d 10%, #43cea2 90%);
+    }
   </style>
 </head>
 <body>
@@ -89,6 +171,19 @@
       <button class="action-btn" onclick="openNeuroSites()">Сайты нейронок</button>
       <button class="action-btn" onclick="openVSCode()">VS Code Online</button>
     </div>
+
+    <!-- Чат-бот встроен ниже -->
+    <div class="chatbot-box" id="chatbot-box">
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-message bot"><div class="bubble">Привет! Я чат-бот, чем могу помочь?</div></div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="message-input" placeholder="Введите сообщение..." onkeydown="if(event.key==='Enter'){sendMessage();}">
+        <button class="chat-send-btn" onclick="sendMessage()">Отправить</button>
+      </div>
+    </div>
+    <!-- /Чат-бот -->
+
     <div class="footer">
       &copy; 2025 Ваш помощник
     </div>
@@ -135,6 +230,58 @@
           <div style="margin-top:18px;font-size:0.95em;color:#aaa;">Закройте это окно после перехода.</div>
         </body>
       `);
+    }
+
+    // --- ЧАТ-БОТ ЛОГИКА ---
+    const chatMessages = document.getElementById('chat-messages');
+    const messageInput = document.getElementById('message-input');
+
+    function sendMessage() {
+      const messageText = messageInput.value.trim();
+      if (messageText !== '') {
+        addMessage('user', messageText);
+        const botResponse = getBotResponse(messageText);
+        setTimeout(() => {
+          addMessage('bot', botResponse);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 450);
+        messageInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+
+    function addMessage(sender, message) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-message ' + sender;
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = 'bubble';
+      bubbleDiv.textContent = message;
+      msgDiv.appendChild(bubbleDiv);
+      chatMessages.appendChild(msgDiv);
+    }
+
+    function getBotResponse(userMessage) {
+      // Примитивная логика для ответов, можно заменить на интеграцию с API
+      const text = userMessage.toLowerCase();
+      if (text.includes('привет') || text.includes('здравствуй')) {
+        return 'Здравствуйте! Чем могу помочь?';
+      }
+      if (text.includes('проводник')) {
+        return 'Чтобы открыть проводник, воспользуйтесь первой кнопкой выше.';
+      }
+      if (text.includes('нейро') || text.includes('чатгпт') || text.includes('gpt')) {
+        return 'Нажмите вторую кнопку "Сайты нейронок" для списка популярных сервисов с ИИ.';
+      }
+      if (text.includes('vscode') || text.includes('код') || text.includes('онлайн')) {
+        return 'Третья кнопка открывает VS Code Online и аналоги. Попробуйте!';
+      }
+      if (text.includes('спасибо')) {
+        return 'Пожалуйста! Если нужны ещё инструменты — спрашивайте!';
+      }
+      if (text.match(/(как|help|помоги|что делать)/)) {
+        return 'Я подскажу, какие инструменты доступны — выберите действие выше или задайте вопрос!';
+      }
+      return 'Извините, я пока понимаю только простые команды и вопросы о доступных инструментах.';
     }
   </script>
 </body>

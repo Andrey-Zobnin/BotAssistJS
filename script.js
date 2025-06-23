@@ -91,7 +91,24 @@ function addMessage(sender, message) {
   msgDiv.appendChild(bubbleDiv);
   chatMessages.appendChild(msgDiv);
 }
+function openMessengers() {
+  const messengers = [
+    { name: "Telegram Web", url: "https://web.telegram.org/" },
+    { name: "WhatsApp Web", url: "https://web.whatsapp.com/" }
+  ];
+  let list = messengers.map(s => `<a href="${s.url}" target="_blank" style="color:#0088cc;text-decoration:none;display:block;margin:8px 0;padding:8px 12px;border-radius:8px;background:#f0f8ff;transition:background 0.2s;">${s.name}</a>`).join('');
+  let win = window.open("", "_blank", "width=400,height=220");
+  win.document.write(`
+    <title>Веб-мессенджеры</title>
+    <body style="font-family:Montserrat,sans-serif;background:#f8fafc;color:#243b55;padding:28px;">
+      <h2 style="margin-top:0;color:#0088cc;">Веб-версии мессенджеров</h2>
+      ${list}
+      <div style="margin-top:18px;font-size:0.95em;color:#aaa;">Закройте это окно после перехода.</div>
+    </body>
+  `);
+}
 
+// Обновим функцию getBotResponse для обработки запросов о мессенджерах
 function getBotResponse(userMessage) {
   const text = userMessage.toLowerCase();
   if (text.includes('привет') || text.includes('здравствуй')) {
@@ -111,6 +128,9 @@ function getBotResponse(userMessage) {
   }
   if (text.includes('ссылки') || text.includes('полезные ресурсы')) {
     return 'Кнопка "Полезные ссылки" содержит подборку ресурсов для разработчиков.';
+  }
+  if (text.includes('телеграм') || text.includes('whatsapp') || text.includes('ватсап') || text.includes('мессенджер')) {
+    return 'Нажмите кнопку "Мессенджеры" для доступа к веб-версиям Telegram и WhatsApp.';
   }
   if (text.includes('спасибо')) {
     return 'Пожалуйста! Если нужны ещё инструменты — спрашивайте!';

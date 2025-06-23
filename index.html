@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Бот-помощник</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .assistant-container {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px 0 rgba(0,50,150,0.15);
+      padding: 42px 32px;
+      max-width: 370px;
+      width: 100%;
+      text-align: center;
+    }
+    .avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #66a6ff 60%, #f6d365 100%);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      color: #fff;
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #243b55;
+    }
+    p {
+      color: #4a4a4a;
+      margin: 0 0 24px 0;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .action-btn {
+      background: linear-gradient(90deg, #43cea2 10%, #185a9d 90%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 14px 0;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px 0 rgba(67,206,162,0.08);
+      outline: none;
+    }
+    .action-btn:hover {
+      background: linear-gradient(90deg, #185a9d 10%, #43cea2 90%);
+      box-shadow: 0 4px 24px 0 rgba(67,206,162,0.15);
+    }
+    .footer {
+      margin-top: 28px;
+      color: #bbb;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="assistant-container">
+    <div class="avatar">
+      🤖
+    </div>
+    <h1>Бот-помощник</h1>
+    <p>Я помогу открыть полезные инструменты. Выберите действие:</p>
+    <div class="actions">
+      <button class="action-btn" onclick="openExplorer()">Открыть проводник</button>
+      <button class="action-btn" onclick="openNeuroSites()">Сайты нейронок</button>
+      <button class="action-btn" onclick="openVSCode()">VS Code Online</button>
+    </div>
+    <div class="footer">
+      &copy; 2025 Ваш помощник
+    </div>
+  </div>
+  <script>
+    function openExplorer() {
+      alert('Проводник можно открыть вручную в вашей операционной системе. Веб-страницы не могут напрямую открывать файловый менеджер по соображениям безопасности.');
+    }
+    function openNeuroSites() {
+      // Массив популярных нейросетевых сервисов
+      const sites = [
+        { name: "ChatGPT", url: "https://chat.openai.com/" },
+        { name: "YandexGPT", url: "https://ya.ru/gpt" },
+        { name: "Midjourney (через Discord)", url: "https://midjourney.com/" },
+        { name: "Suno (музыка)", url: "https://app.suno.ai/" },
+        { name: "Stable Diffusion", url: "https://stablediffusionweb.com/" },
+        { name: "Google Gemini", url: "https://gemini.google.com/" }
+      ];
+      let list = sites.map(s => `<a href="${s.url}" target="_blank" style="color:#185a9d;text-decoration:none;display:block;margin:8px 0;">${s.name}</a>`).join('');
+      let win = window.open("", "_blank", "width=400,height=520");
+      win.document.write(`
+        <title>Сайты нейронок</title>
+        <body style="font-family:Montserrat,sans-serif;background:#f8fafc;color:#243b55;padding:28px;">
+          <h2>Популярные сайты нейронок</h2>
+          ${list}
+          <div style="margin-top:18px;font-size:0.95em;color:#aaa;">Закройте это окно после перехода.</div>
+        </body>
+      `);
+    }
+    function openVSCode() {
+      // Используем популярные облачные редакторы
+      const vsLinks = [
+        { name: "vscode.dev", url: "https://vscode.dev/" },
+        { name: "GitHub Codespaces", url: "https://github.com/codespaces" },
+        { name: "Replit", url: "https://replit.com/" }
+      ];
+      let list = vsLinks.map(s => `<a href="${s.url}" target="_blank" style="color:#43cea2;text-decoration:none;display:block;margin:8px 0;">${s.name}</a>`).join('');
+      let win = window.open("", "_blank", "width=400,height=320");
+      win.document.write(`
+        <title>VS Code Online</title>
+        <body style="font-family:Montserrat,sans-serif;background:#f8fafc;color:#243b55;padding:28px;">
+          <h2>VS Code Online и аналоги</h2>
+          ${list}
+          <div style="margin-top:18px;font-size:0.95em;color:#aaa;">Закройте это окно после перехода.</div>
+        </body>
+      `);
+    }
+  </script>
+</body>
+</html>
